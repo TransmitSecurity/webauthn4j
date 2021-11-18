@@ -24,7 +24,7 @@ import com.webauthn4j.util.UnsignedNumberUtil;
 /**
  * The supported transaction confirmation display type(s).
  *
- * @see <a href="https://fidoalliance.org/specs/fido-v2.0-rd-20180702/fido-registry-v2.0-rd-20180702.html#transaction-confirmation-display-types">§3.2 Key Protection Types</a>
+ * @see <a href="https://fidoalliance.org/specs/common-specs/fido-registry-v2.2-rd-20210525.html#transaction-confirmation-display-types">§3.2 Key Protection Types</a>
  */
 public enum MDS3TransactionConfirmationDisplay {
 

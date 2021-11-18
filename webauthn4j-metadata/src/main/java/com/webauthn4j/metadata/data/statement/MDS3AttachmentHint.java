@@ -24,7 +24,7 @@ import com.webauthn4j.util.UnsignedNumberUtil;
 /**
  * The supported attachment hint type(s).
  *
- * @see <a href="https://fidoalliance.org/specs/fido-v2.0-rd-20180702/fido-registry-v2.0-rd-20180702.html#authenticator-attachment-hints">§3.4 Authenticator Attachment Hints</a>
+ * @see <a href="https://fidoalliance.org/specs/common-specs/fido-registry-v2.2-rd-20210525.html#authenticator-attachment-hints">§3.4 Authenticator Attachment Hints</a>
  */
 public enum MDS3AttachmentHint {
 

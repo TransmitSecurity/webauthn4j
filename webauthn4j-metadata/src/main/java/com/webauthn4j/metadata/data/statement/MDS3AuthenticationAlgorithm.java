@@ -24,7 +24,7 @@ import com.webauthn4j.util.UnsignedNumberUtil;
 /**
  * The supported authentication algorithm(s).
  *
- * @see <a href="https://fidoalliance.org/specs/fido-v2.0-rd-20180702/fido-registry-v2.0-rd-20180702.html#authentication-algorithms">§3.6.1 Authentication Algorithms</a>
+ * @see <a href="https://fidoalliance.org/specs/common-specs/fido-registry-v2.2-rd-20210525.html#authentication-algorithms">§3.6.1 Authentication Algorithms</a>
  */
 public enum MDS3AuthenticationAlgorithm {
 

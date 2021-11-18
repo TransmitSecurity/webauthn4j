@@ -24,7 +24,7 @@ import com.webauthn4j.util.UnsignedNumberUtil;
 /**
  * The supported publik key representation format(s).
  *
- * @see <a href="https://fidoalliance.org/specs/fido-v2.0-rd-20180702/fido-registry-v2.0-rd-20180702.html#public-key-representation-formats">§3.6.2 Public Key Representation Formats</a>
+ * @see <a href="https://fidoalliance.org/specs/common-specs/fido-registry-v2.2-rd-20210525.html#public-key-representation-formats">§3.6.2 Public Key Representation Formats</a>
  */
 public enum MDS3PublicKeyRepresentationFormat {
 
