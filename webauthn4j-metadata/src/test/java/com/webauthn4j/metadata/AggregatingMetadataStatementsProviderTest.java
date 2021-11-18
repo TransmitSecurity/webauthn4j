@@ -31,12 +31,12 @@ class AggregatingMetadataStatementsProviderTest {
 
     @Test
     void provide_test() {
-        MetadataStatementsProvider providerA = mock(MetadataStatementsProvider.class);
+        MetadataStatementsProvider providerA = mock(MetadataItemsMetadataStatementsProvider.class);
         Map<AAGUID, Set<MetadataStatement>> mapA = new HashMap<>();
         mapA.put(new AAGUID("df495bdc-223a-429d-9f0e-ebfa29155812"), new HashSet<>());
         when(providerA.provide()).thenReturn(mapA);
 
-        MetadataStatementsProvider providerB = mock(MetadataStatementsProvider.class);
+        MetadataStatementsProvider providerB = mock(MetadataItemsMetadataStatementsProvider.class);
         Map<AAGUID, Set<MetadataStatement>> mapB = new HashMap<>();
         mapB.put(new AAGUID("d075c221-6a37-4c61-80c7-11254460d5bb"), new HashSet<>());
         when(providerB.provide()).thenReturn(mapB);
@@ -51,12 +51,12 @@ class AggregatingMetadataStatementsProviderTest {
         MetadataStatement metadataStatementA = mock(MetadataStatement.class);
         MetadataStatement metadataStatementB = mock(MetadataStatement.class);
 
-        MetadataStatementsProvider providerA = mock(MetadataStatementsProvider.class);
+        MetadataStatementsProvider providerA = mock(MetadataItemsMetadataStatementsProvider.class);
         Map<AAGUID, Set<MetadataStatement>> mapA = new HashMap<>();
         mapA.put(new AAGUID("df495bdc-223a-429d-9f0e-ebfa29155812"), new HashSet<>(Collections.singletonList(metadataStatementA)));
         when(providerA.provide()).thenReturn(mapA);
 
-        MetadataStatementsProvider providerB = mock(MetadataStatementsProvider.class);
+        MetadataStatementsProvider providerB = mock(MetadataItemsMetadataStatementsProvider.class);
         Map<AAGUID, Set<MetadataStatement>> mapB = new HashMap<>();
         mapB.put(new AAGUID("df495bdc-223a-429d-9f0e-ebfa29155812"), new HashSet<>(Arrays.asList(metadataStatementA, metadataStatementB)));
         when(providerB.provide()).thenReturn(mapB);
@@ -68,12 +68,12 @@ class AggregatingMetadataStatementsProviderTest {
 
     @Test
     void provide_with_one_of_provider_throws_exception_test() {
-        MetadataStatementsProvider providerA = mock(MetadataStatementsProvider.class);
+        MetadataStatementsProvider providerA = mock(MetadataItemsMetadataStatementsProvider.class);
         Map<AAGUID, Set<MetadataStatement>> mapA = new HashMap<>();
         mapA.put(new AAGUID("df495bdc-223a-429d-9f0e-ebfa29155812"), new HashSet<>());
         when(providerA.provide()).thenReturn(mapA);
 
-        MetadataStatementsProvider providerB = mock(MetadataStatementsProvider.class);
+        MetadataStatementsProvider providerB = mock(MetadataItemsMetadataStatementsProvider.class);
         when(providerB.provide()).thenThrow(new RuntimeException("unexpected error"));
 
         AggregatingMetadataStatementsProvider target = new AggregatingMetadataStatementsProvider(Arrays.asList(providerA, providerB));

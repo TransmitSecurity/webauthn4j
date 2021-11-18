@@ -18,114 +18,109 @@ package com.webauthn4j.metadata.data.statement;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webauthn4j.data.MDS3KeyProtectionType;
+import com.webauthn4j.data.MDS3MatcherProtectionType;
 import com.webauthn4j.data.attestation.authenticator.AAGUID;
 import com.webauthn4j.metadata.data.uaf.AAID;
-import com.webauthn4j.util.CollectionUtil;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
 /**
  * This metadata statement contains a subset of verifiable information for authenticators certified by the FIDO Alliance.
  */
-public class MetadataStatement implements IMetadataStatement, Serializable {
+public class MDS3MetadataStatement implements IMetadataStatement, Serializable {
     private final String legalHeader;
     private final AAID aaid;
     private final AAGUID aaguid;
     private final List<String> attestationCertificateKeyIdentifiers;
     private final String description;
     private final AlternativeDescriptions alternativeDescriptions;
-    private final Integer authenticatorVersion;
+    private final BigInteger authenticatorVersion;
     private final String protocolFamily;
+    private final Integer schema;
     private final List<Version> upv;
-    private final String assertionScheme;
-    private final AuthenticationAlgorithm authenticationAlgorithm;
-    private final List<AuthenticationAlgorithm> authenticationAlgorithms;
-    private final PublicKeyRepresentationFormat publicKeyAlgAndEncoding;
-    private final List<PublicKeyRepresentationFormat> publicKeyAlgAndEncodings;
-    private final List<AttestationType> attestationTypes;
-    private final List<VerificationMethodANDCombinations> userVerificationDetails;
-    private final KeyProtections keyProtection;
+    private final List<MDS3AuthenticationAlgorithm> authenticationAlgorithms;
+    private final List<MDS3PublicKeyRepresentationFormat> publicKeyAlgAndEncodings;
+    private final List<MDS3AttestationType> attestationTypes;
+    private final List<MDS3VerificationMethodANDCombinations> userVerificationDetails;
+    private final List<MDS3KeyProtectionType> keyProtection;
     private final Boolean isKeyRestricted;
     private final Boolean isFreshUserVerificationRequired;
-    private final MatcherProtections matcherProtection;
+    private final List<MDS3MatcherProtectionType> matcherProtection;
     private final Integer cryptoStrength;
-    private final String operationEnv;
-    private final AttachmentHints attachmentHint;
-    private final Boolean isSecondFactorOnly;
-    private final TransactionConfirmationDisplays tcDisplay;
+    private final List<MDS3AttachmentHint> attachmentHint;
+    private final List<MDS3TransactionConfirmationDisplay> tcDisplay;
     private final String tcDisplayContentType;
     private final List<DisplayPNGCharacteristicsDescriptor> tcDisplayPNGCharacteristics;
     private final List<X509Certificate> attestationRootCertificates;
     private final List<EcdaaTrustAnchor> ecdaaTrustAnchors;
     private final String icon;
     private final List<ExtensionDescriptor> supportedExtensions;
+    private final AuthenticatorGetInfo authenticatorGetInfo;
+
 
     @JsonCreator
-    public MetadataStatement(
+    public MDS3MetadataStatement(
             @JsonProperty("legalHeader") String legalHeader,
             @JsonProperty("aaid") AAID aaid,
             @JsonProperty("aaguid") AAGUID aaguid,
             @JsonProperty("attestationCertificateKeyIdentifiers") List<String> attestationCertificateKeyIdentifiers,
             @JsonProperty("description") String description,
             @JsonProperty("alternativeDescriptions") AlternativeDescriptions alternativeDescriptions,
-            @JsonProperty("authenticatorVersion") Integer authenticatorVersion,
+            @JsonProperty("authenticatorVersion") BigInteger authenticatorVersion,
             @JsonProperty("protocolFamily") String protocolFamily,
+            @JsonProperty("schema") Integer schema,
             @JsonProperty("upv") List<Version> upv,
-            @JsonProperty("assertionScheme") String assertionScheme,
-            @JsonProperty("authenticationAlgorithm") AuthenticationAlgorithm authenticationAlgorithm,
-            @JsonProperty("authenticationAlgorithms") List<AuthenticationAlgorithm> authenticationAlgorithms,
-            @JsonProperty("publicKeyAlgAndEncoding") PublicKeyRepresentationFormat publicKeyAlgAndEncoding,
-            @JsonProperty("publicKeyAlgAndEncodings") List<PublicKeyRepresentationFormat> publicKeyAlgAndEncodings,
-            @JsonProperty("attestationTypes") List<AttestationType> attestationTypes,
-            @JsonProperty("userVerificationDetails") List<VerificationMethodANDCombinations> userVerificationDetails,
-            @JsonProperty("keyProtection") KeyProtections keyProtection,
+            @JsonProperty("authenticationAlgorithms") List<MDS3AuthenticationAlgorithm> authenticationAlgorithms,
+            @JsonProperty("publicKeyAlgAndEncodings") List<MDS3PublicKeyRepresentationFormat> publicKeyAlgAndEncodings,
+            @JsonProperty("attestationTypes") List<MDS3AttestationType> attestationTypes,
+            @JsonProperty("userVerificationDetails") List<MDS3VerificationMethodANDCombinations> userVerificationDetails,
+            @JsonProperty("keyProtection") List<MDS3KeyProtectionType> keyProtection,
             @JsonProperty("isKeyRestricted") Boolean isKeyRestricted,
             @JsonProperty("isFreshUserVerificationRequired") Boolean isFreshUserVerificationRequired,
-            @JsonProperty("matcherProtection") MatcherProtections matcherProtection,
+            @JsonProperty("matcherProtection") List<MDS3MatcherProtectionType>  matcherProtection,
             @JsonProperty("cryptoStrength") Integer cryptoStrength,
-            @JsonProperty("operationEnv") String operationEnv,
-            @JsonProperty("attachmentHint") AttachmentHints attachmentHint,
-            @JsonProperty("isSecondFactorOnly") Boolean isSecondFactorOnly,
-            @JsonProperty("tcDisplay") TransactionConfirmationDisplays tcDisplay,
+            @JsonProperty("attachmentHint") List<MDS3AttachmentHint> attachmentHint,
+            @JsonProperty("tcDisplay") List<MDS3TransactionConfirmationDisplay> tcDisplay,
             @JsonProperty("tcDisplayContentType") String tcDisplayContentType,
             @JsonProperty("tcDisplayPNGCharacteristics") List<DisplayPNGCharacteristicsDescriptor> tcDisplayPNGCharacteristics,
             @JsonProperty("attestationRootCertificates") List<X509Certificate> attestationRootCertificates,
             @JsonProperty("ecdaaTrustAnchors") List<EcdaaTrustAnchor> ecdaaTrustAnchors,
             @JsonProperty("icon") String icon,
-            @JsonProperty("supportedExtensions") List<ExtensionDescriptor> supportedExtensions) {
+            @JsonProperty("supportedExtensions") List<ExtensionDescriptor> supportedExtensions,
+            @JsonProperty("authenticatorGetInfo") AuthenticatorGetInfo authenticatorGetInfo) {
+
         this.legalHeader = legalHeader;
         this.aaid = aaid;
         this.aaguid = aaguid;
-        this.attestationCertificateKeyIdentifiers = CollectionUtil.unmodifiableList(attestationCertificateKeyIdentifiers);
-        this.alternativeDescriptions = alternativeDescriptions;
+        this.attestationCertificateKeyIdentifiers = attestationCertificateKeyIdentifiers;
         this.description = description;
+        this.alternativeDescriptions = alternativeDescriptions;
         this.authenticatorVersion = authenticatorVersion;
         this.protocolFamily = protocolFamily;
-        this.upv = CollectionUtil.unmodifiableList(upv);
-        this.assertionScheme = assertionScheme;
-        this.authenticationAlgorithm = authenticationAlgorithm;
-        this.authenticationAlgorithms = CollectionUtil.unmodifiableList(authenticationAlgorithms);
-        this.publicKeyAlgAndEncoding = publicKeyAlgAndEncoding;
-        this.publicKeyAlgAndEncodings = CollectionUtil.unmodifiableList(publicKeyAlgAndEncodings);
+        this.schema = schema;
+        this.upv = upv;
+        this.authenticationAlgorithms = authenticationAlgorithms;
+        this.publicKeyAlgAndEncodings = publicKeyAlgAndEncodings;
         this.attestationTypes = attestationTypes;
-        this.userVerificationDetails = CollectionUtil.unmodifiableList(userVerificationDetails);
+        this.userVerificationDetails = userVerificationDetails;
         this.keyProtection = keyProtection;
         this.isKeyRestricted = isKeyRestricted;
         this.isFreshUserVerificationRequired = isFreshUserVerificationRequired;
         this.matcherProtection = matcherProtection;
         this.cryptoStrength = cryptoStrength;
-        this.operationEnv = operationEnv;
         this.attachmentHint = attachmentHint;
-        this.isSecondFactorOnly = isSecondFactorOnly;
         this.tcDisplay = tcDisplay;
         this.tcDisplayContentType = tcDisplayContentType;
-        this.tcDisplayPNGCharacteristics = CollectionUtil.unmodifiableList(tcDisplayPNGCharacteristics);
-        this.attestationRootCertificates = CollectionUtil.unmodifiableList(attestationRootCertificates);
-        this.ecdaaTrustAnchors = CollectionUtil.unmodifiableList(ecdaaTrustAnchors);
+        this.tcDisplayPNGCharacteristics = tcDisplayPNGCharacteristics;
+        this.attestationRootCertificates = attestationRootCertificates;
+        this.ecdaaTrustAnchors = ecdaaTrustAnchors;
         this.icon = icon;
-        this.supportedExtensions = CollectionUtil.unmodifiableList(supportedExtensions);
+        this.supportedExtensions = supportedExtensions;
+        this.authenticatorGetInfo = authenticatorGetInfo;
     }
 
     public String getLegalHeader() {
@@ -152,7 +147,7 @@ public class MetadataStatement implements IMetadataStatement, Serializable {
         return alternativeDescriptions;
     }
 
-    public Integer getAuthenticatorVersion() {
+    public BigInteger getAuthenticatorVersion() {
         return authenticatorVersion;
     }
 
@@ -160,39 +155,31 @@ public class MetadataStatement implements IMetadataStatement, Serializable {
         return protocolFamily;
     }
 
+    public Integer getSchema() {
+        return schema;
+    }
+
     public List<Version> getUpv() {
         return upv;
     }
 
-    public String getAssertionScheme() {
-        return assertionScheme;
-    }
-
-    public AuthenticationAlgorithm getAuthenticationAlgorithm() {
-        return authenticationAlgorithm;
-    }
-
-    public List<AuthenticationAlgorithm> getAuthenticationAlgorithms() {
+    public List<MDS3AuthenticationAlgorithm> getAuthenticationAlgorithms() {
         return authenticationAlgorithms;
     }
 
-    public PublicKeyRepresentationFormat getPublicKeyAlgAndEncoding() {
-        return publicKeyAlgAndEncoding;
-    }
-
-    public List<PublicKeyRepresentationFormat> getPublicKeyAlgAndEncodings() {
+    public List<MDS3PublicKeyRepresentationFormat> getPublicKeyAlgAndEncodings() {
         return publicKeyAlgAndEncodings;
     }
 
-    public List<AttestationType> getAttestationTypes() {
+    public List<MDS3AttestationType> getAttestationTypes() {
         return attestationTypes;
     }
 
-    public List<VerificationMethodANDCombinations> getUserVerificationDetails() {
+    public List<MDS3VerificationMethodANDCombinations> getUserVerificationDetails() {
         return userVerificationDetails;
     }
 
-    public KeyProtections getKeyProtection() {
+    public List<MDS3KeyProtectionType> getKeyProtection() {
         return keyProtection;
     }
 
@@ -204,7 +191,7 @@ public class MetadataStatement implements IMetadataStatement, Serializable {
         return isFreshUserVerificationRequired;
     }
 
-    public MatcherProtections getMatcherProtection() {
+    public List<MDS3MatcherProtectionType> getMatcherProtection() {
         return matcherProtection;
     }
 
@@ -212,19 +199,11 @@ public class MetadataStatement implements IMetadataStatement, Serializable {
         return cryptoStrength;
     }
 
-    public String getOperationEnv() {
-        return operationEnv;
-    }
-
-    public AttachmentHints getAttachmentHint() {
+    public List<MDS3AttachmentHint> getAttachmentHint() {
         return attachmentHint;
     }
 
-    public Boolean getSecondFactorOnly() {
-        return isSecondFactorOnly;
-    }
-
-    public TransactionConfirmationDisplays getTcDisplay() {
+    public List<MDS3TransactionConfirmationDisplay> getTcDisplay() {
         return tcDisplay;
     }
 
@@ -232,9 +211,7 @@ public class MetadataStatement implements IMetadataStatement, Serializable {
         return tcDisplayContentType;
     }
 
-    public List<DisplayPNGCharacteristicsDescriptor> getTcDisplayPNGCharacteristics() {
-        return tcDisplayPNGCharacteristics;
-    }
+    public List<DisplayPNGCharacteristicsDescriptor> getTcDisplayPNGCharacteristics() { return tcDisplayPNGCharacteristics; }
 
     public List<X509Certificate> getAttestationRootCertificates() {
         return attestationRootCertificates;
@@ -248,7 +225,8 @@ public class MetadataStatement implements IMetadataStatement, Serializable {
         return icon;
     }
 
-    public List<ExtensionDescriptor> getSupportedExtensions() {
-        return supportedExtensions;
-    }
+    public List<ExtensionDescriptor> getSupportedExtensions() { return supportedExtensions; }
+
+    public AuthenticatorGetInfo getAuthenticatorGetInfo() { return authenticatorGetInfo; }
+
 }

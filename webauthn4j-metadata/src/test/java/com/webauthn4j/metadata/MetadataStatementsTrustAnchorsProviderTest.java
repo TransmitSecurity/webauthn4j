@@ -17,6 +17,7 @@
 package com.webauthn4j.metadata;
 
 import com.webauthn4j.data.attestation.authenticator.AAGUID;
+import com.webauthn4j.metadata.data.statement.MetadataStatement;
 import com.webauthn4j.test.TestAttestationUtil;
 import com.webauthn4j.test.TestDataUtil;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ class MetadataStatementsTrustAnchorsProviderTest {
 
     @Test
     void provide_test() {
-        MetadataStatementsProvider metadataStatementsProvider = mock(MetadataStatementsProvider.class);
+        MetadataStatementsProvider metadataStatementsProvider = mock(MetadataItemsMetadataStatementsProvider.class);
         AAGUID aaguid = new AAGUID("49e25c43-a6d1-49f0-bcfa-23e23a7c0e52");
         when(metadataStatementsProvider.provide()).thenReturn(Collections.singletonMap(aaguid, Collections.singleton(TestDataUtil.createMetadataStatement())));
         MetadataStatementsTrustAnchorsProvider metadataStatementsTrustAnchorsProvider = new MetadataStatementsTrustAnchorsProvider(metadataStatementsProvider);
