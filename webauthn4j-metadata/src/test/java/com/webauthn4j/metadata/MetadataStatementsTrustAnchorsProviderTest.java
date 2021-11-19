@@ -35,7 +35,7 @@ class MetadataStatementsTrustAnchorsProviderTest {
 
     @Test
     void provide_test() {
-        MetadataStatementsProvider metadataStatementsProvider = mock(MetadataItemsMetadataStatementsProvider.class);
+        MetadataStatementsProvider metadataStatementsProvider = mock(MetadataStatementsProvider.class);
         AAGUID aaguid = new AAGUID("49e25c43-a6d1-49f0-bcfa-23e23a7c0e52");
         when(metadataStatementsProvider.provide()).thenReturn(Collections.singletonMap(aaguid, Collections.singleton(TestDataUtil.createMetadataStatement())));
         MetadataStatementsTrustAnchorsProvider metadataStatementsTrustAnchorsProvider = new MetadataStatementsTrustAnchorsProvider(metadataStatementsProvider);
